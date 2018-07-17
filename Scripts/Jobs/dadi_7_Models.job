@@ -1,0 +1,23 @@
+#!/bin/sh
+#PBS -l mem=62gb,nodes=1:ppn=24,walltime=96:00:00
+#PBS -m abe
+#PBS -M konox006@umn.edu
+#PBS -A msistaff
+#PBS -q mesabi
+
+# Load modules
+module load python3/3.4
+module load parallel
+
+# Set paths
+OUT_DIR="/home/mcgaughs/konox006/Projects/Demography/Results/dadi_Out"
+DADI_JOBS="/home/mcgaughs/konox006/Projects/Demography/Scripts/dadi_Jobs.txt"
+
+# Activate our isolated Python environment
+#   This was generated with the instructions at the following link:
+#   https://github.umn.edu/konox006/SEM_CaveFish/wiki/Demo_Install#dadi-on-msi
+source activate dadi_env
+
+# Run the software
+cd ${OUT_DIR}
+parallel < ${DADI_JOBS}
